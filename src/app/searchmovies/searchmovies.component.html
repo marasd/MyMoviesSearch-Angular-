@@ -1,0 +1,32 @@
+<div class="mt-3">
+  <form [formGroup]="searchForm" class="form d-flex  my-2 my-lg-0 col-2" (ngSubmit)="searching()">
+
+
+    <input formControlName='search' class="form-control mr-sm-2 " type="number" min="1888" max="2021"
+      placeholder="Year (1888-2021)" required>
+    <button class="btn btn-outline-success my-2 my-sm-0" [disabled]="searchForm.invalid" type="submit">Search</button>
+
+  </form>
+  <hr>
+
+  <small class="alert alert-danger"
+    *ngIf="(searchForm.get('search').hasError('pattern') || searchForm.get('search').hasError('max') || searchForm.get('search').hasError('min'))&& (searchForm.get('search').touched || searchForm.get('search').dirty)">
+
+    Invalid year ... You must enter a year between 1888 and 2021
+
+  </small>
+  <hr>
+</div>
+<table>
+  <thead>
+    <th>Movie Title</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let movie of movieStream">
+      <td>{{movie.title}}</td>
+      <td><button class="btn btn-primary" routerLink="/movie" (click)="setmoviesDetails(movie)">Movie Details</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
